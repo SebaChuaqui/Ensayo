@@ -1,11 +1,12 @@
 package com.example.products.model
 
 import androidx.lifecycle.LiveData
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
-
+@Dao
 interface ProductsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
