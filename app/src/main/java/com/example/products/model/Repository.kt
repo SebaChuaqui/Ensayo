@@ -48,21 +48,20 @@ class Repository(private val mProductsDao: ProductsDao) {
         })
 
         fun getOneById(id :String): LiveData<ProductsEntityItem>{
-            return mProductsDao.getCodigoByID()
+            return mProductsDao.getCodigoByID(id)
         }
 
         fun getOneByImage(image: String): LiveData<ProductsEntityItem>{
-            return mProductsDao.getImageByID()
+            return mProductsDao.getImageByID(image)
         }
 
         fun getOneByName(name: String): LiveData<ProductsEntityItem>{
-            return mProductsDao.getNameByID()
+            return mProductsDao.getNameByID(name)
         }
 
         fun getOneByPrice(price: String): LiveData<ProductsEntityItem>{
-            return mProductsDao.getPriceByID()
+            return mProductsDao.getPriceByID(price)
         }
-
 
     }
 }
