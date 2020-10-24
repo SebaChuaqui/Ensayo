@@ -13,7 +13,7 @@ interface ProductsDao {
     suspend fun insertAllProducts(mProductsList: List<ProductsEntityItem>)
 
     @Query("SELECT * FROM products_table")
-    fun getAllProductsFromDB(): LiveData<ProductsEntityItem>
+    fun getAllProductsFromDB(): LiveData<List<ProductsEntityItem>>
 
     @Query("SELECT * FROM products_table WHERE id=:id")
     fun getCodigoByID(id: String): LiveData<ProductsEntityItem>

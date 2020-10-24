@@ -17,18 +17,18 @@ class Repository(private val mProductsDao: ProductsDao) {
     val mProductos = mProductsDao.getAllProductsFromDB()
     val mDataProductsDBList = mutableListOf<ProductsEntity>()
 
-    fun getProductsFromServer(){
+    fun getProductsFromServer() {
 
         val mCall = service.fecthAllProducts()
-        mCall.enqueue(object : Callback<List<ProductsEntityItem>>{
+        mCall.enqueue(object : Callback<List<ProductsEntityItem>> {
             override fun onResponse(
                 call: Call<List<ProductsEntityItem>>,
                 response: Response<List<ProductsEntityItem>>
             ) {
                 Log.d("Prueba", response.body().toString())
-                when (response.code()){
+                when (response.code()) {
 
-                    in 200..299 -> CoroutineScope(Dispatchers.IO).launch{
+                    in 200..299 -> CoroutineScope(Dispatchers.IO).launch {
                         response.body()?.let {
                             Log.d("productos", it.toString())
                             mProductsDao.insertAllProducts(it)
@@ -47,21 +47,21 @@ class Repository(private val mProductsDao: ProductsDao) {
 
         })
 
-        fun getOneById(id :String): LiveData<ProductsEntityItem>{
-            return mProductsDao.getCodigoByID(id)
-        }
+    }
 
-        fun getOneByImage(image: String): LiveData<ProductsEntityItem>{
-            return mProductsDao.getImageByID(image)
-        }
+    fun getOneById(id: String): LiveData<ProductsEntityItem> {
+        return mProductsDao.getCodigoByID(id)
+    }
 
-        fun getOneByName(name: String): LiveData<ProductsEntityItem>{
-            return mProductsDao.getNameByID(name)
-        }
+    fun getOneByImage(image: String): LiveData<ProductsEntityItem> {
+        return mProductsDao.getImageByID(image)
+    }
 
-        fun getOneByPrice(price: String): LiveData<ProductsEntityItem>{
-            return mProductsDao.getPriceByID(price)
-        }
+    fun getOneByName(name: String): LiveData<ProductsEntityItem> {
+        return mProductsDao.getNameByID(name)
+    }
 
+    fun getOneByPrice(price: String): LiveData<ProductsEntityItem>{
+        return mProductsDao.getPriceByID(price)
     }
 }
