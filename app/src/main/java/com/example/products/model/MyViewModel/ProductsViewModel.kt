@@ -3,8 +3,8 @@ package com.example.products.model.MyViewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.example.products.model.ProductsDB
-import com.example.products.model.ProductsEntityItem
+import com.example.products.model.room.ProductsDB
+import com.example.products.model.room.ProductsEntityItem
 import com.example.products.model.Repository
 
 class ProductsViewModel(application: Application): AndroidViewModel(application) {

@@ -1,10 +1,9 @@
-package com.example.products.model
+package com.example.products.model.room
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-
 
 
 private const val DATA_BASE_NAME="products_db"
@@ -22,7 +21,7 @@ abstract class ProductsDB: RoomDatabase() {
 
         private var INSTANCE: ProductsDB? = null
 
-        fun getProductsDataBase(context: Context): ProductsDB{
+        fun getProductsDataBase(context: Context): ProductsDB {
 
             val tempInterface = INSTANCE
             if(tempInterface != null){

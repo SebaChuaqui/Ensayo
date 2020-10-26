@@ -2,7 +2,10 @@ package com.example.products.model
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import com.example.products.model.network.RetrofitClient
+import com.example.products.model.retrofit.ProductsEntity
+import com.example.products.model.retrofit.RetrofitClient
+import com.example.products.model.room.ProductsDao
+import com.example.products.model.room.ProductsEntityItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,8 +25,8 @@ class Repository(private val mProductsDao: ProductsDao) {
         val mCall = service.fecthAllProducts()
         mCall.enqueue(object : Callback<List<ProductsEntityItem>> {
             override fun onResponse(
-                call: Call<List<ProductsEntityItem>>,
-                response: Response<List<ProductsEntityItem>>
+                    call: Call<List<ProductsEntityItem>>,
+                    response: Response<List<ProductsEntityItem>>
             ) {
                 Log.d("Prueba", response.body().toString())
                 when (response.code()) {

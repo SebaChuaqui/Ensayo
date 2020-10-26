@@ -1,7 +1,7 @@
-package com.example.products.model.network
+package com.example.products.model.retrofit
 
 
-import com.example.products.model.ProductsEntityItem
+import com.example.products.model.room.ProductsEntityItem
 import retrofit2.Call
 
 import retrofit2.Response

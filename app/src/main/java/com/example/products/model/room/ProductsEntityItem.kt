@@ -1,4 +1,4 @@
-package com.example.products.model
+package com.example.products.model.room
 
 
 import androidx.room.Entity
