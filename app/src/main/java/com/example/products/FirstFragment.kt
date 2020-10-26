@@ -6,12 +6,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.products.model.MyViewModel.Adapter
+import com.example.products.model.MyViewModel.PassProducts
+import com.example.products.model.MyViewModel.ProductsViewModel
+import com.example.products.model.room.ProductsEntityItem
+import kotlinx.android.synthetic.main.fragment_first.*
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
-class FirstFragment : Fragment() {
+
+class FirstFragment : Fragment(), PassProducts {
+
+    lateinit var mProductsViewModel: ProductsViewModel
+    lateinit var mAdapter: Adapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mProductsViewModel = ViewModelProvider(this).get(ProductsViewModel::class.java)
+        mAdapter = Adapter(this)
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -24,8 +40,25 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.button_first).setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        }
+        val mProductsRecyclerView = recyclerView
+
+        recyclerView.adapter = mAdapter
+        recyclerView.layoutManager = LinearLayoutManager(context)
+
+        mProductsViewModel.mAllProducts.observe(viewLifecycleOwner, Observer {
+            mAdapter.updateListProducts(it)
+        })
+
+        //view.findViewById<Button>(R.id.button_first).setOnClickListener {
+
+        // }
     }
+
+    override fun passProducts(mProductsEntityItem: ProductsEntityItem) {
+
+        val mBundle = Bundle()
+        mBundle.putInt("id", mProductsEntityItem.id)
+        findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, mBundle)
+    }
+
 }
