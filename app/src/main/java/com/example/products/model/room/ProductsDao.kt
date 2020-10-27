@@ -10,21 +10,21 @@ import androidx.room.Query
 interface ProductsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllProducts(mProductsList: List<ProductsEntityItem>)
+    suspend fun insertAllProducts(mProductsList: List<ProductsItem>)
 
     @Query("SELECT * FROM products_table")
-    fun getAllProductsFromDB(): LiveData<List<ProductsEntityItem>>
+    fun getAllProductsFromDB(): LiveData<List<ProductsItem>>
 
     @Query("SELECT * FROM products_table WHERE id=:id")
-    fun getCodigoByID(id: String): LiveData<ProductsEntityItem>
+    fun getCodigoByID(id: String): LiveData<ProductsItem>
 
     @Query("SELECT * FROM products_table WHERE image=:image")
-    fun getImageByID(image: String): LiveData<ProductsEntityItem>
+    fun getImageByID(image: String): LiveData<ProductsItem>
 
     @Query("SELECT * FROM products_table WHERE name=:name")
-    fun getNameByID(name: String): LiveData<ProductsEntityItem>
+    fun getNameByID(name: String): LiveData<ProductsItem>
 
     @Query("SELECT * FROM products_table WHERE price=:price")
-    fun getPriceByID(price: String): LiveData<ProductsEntityItem>
+    fun getPriceByID(price: String): LiveData<ProductsItem>
 
 }

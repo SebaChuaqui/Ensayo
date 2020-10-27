@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase
 
 private const val DATA_BASE_NAME="products_db"
 
-@Database(entities = [ProductsEntityItem::class], version = 1)
+@Database(entities = [ProductsItem::class], version = 1)
 
 
 abstract class ProductsDB: RoomDatabase() {

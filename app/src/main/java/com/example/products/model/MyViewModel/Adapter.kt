@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.products.R
-import com.example.products.model.room.ProductsEntityItem
+import com.example.products.model.room.ProductsItem
 import kotlinx.android.synthetic.main.products.view.*
 
 class Adapter(var mPassProducts: PassProducts ): RecyclerView.Adapter<Adapter.ViewHolderProducts>() {
 
-    private var dataList = emptyList<ProductsEntityItem>()
+    private var dataList = emptyList<ProductsItem>()
 
-    fun updateListProducts(mDataList: List<ProductsEntityItem>){
+    fun updateListProducts(mDataList: List<ProductsItem>){
 
         dataList = mDataList
         notifyDataSetChanged()
@@ -40,8 +40,8 @@ class Adapter(var mPassProducts: PassProducts ): RecyclerView.Adapter<Adapter.Vi
 
     override fun onBindViewHolder(holder: ViewHolderProducts, position: Int) {
 
-        val products1: ProductsEntityItem = dataList[position]
-        holder.mmane.text = products1.name
+        val products1: ProductsItem = dataList[position]
+        holder.mmane.text = products1.name.capitalize()
         holder.mprice.text = products1.price.toString()
         Glide.with(holder.itemView.context)
                 .load(products1.image)
@@ -56,5 +56,5 @@ class Adapter(var mPassProducts: PassProducts ): RecyclerView.Adapter<Adapter.Vi
 
 interface PassProducts{
 
-    fun passProducts(mProductsEntityItem: ProductsEntityItem )
+    fun passProducts(mProductsItem: ProductsItem )
 }

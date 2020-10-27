@@ -5,16 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.products.model.MyViewModel.Adapter
 import com.example.products.model.MyViewModel.PassProducts
 import com.example.products.model.MyViewModel.ProductsViewModel
-import com.example.products.model.room.ProductsEntityItem
+import com.example.products.model.room.ProductsItem
 import kotlinx.android.synthetic.main.fragment_first.*
 
 
@@ -54,10 +52,13 @@ class FirstFragment : Fragment(), PassProducts {
         // }
     }
 
-    override fun passProducts(mProductsEntityItem: ProductsEntityItem) {
+    override fun passProducts(mProductsItem: ProductsItem) {
 
         val mBundle = Bundle()
-        mBundle.putInt("id", mProductsEntityItem.id)
+        mBundle.putInt("id", mProductsItem.id)
+        mBundle.putString("name", mProductsItem.name)
+        mBundle.putInt("price", mProductsItem.price)
+        mBundle.putString("image", mProductsItem.image )
         findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, mBundle)
     }
 
