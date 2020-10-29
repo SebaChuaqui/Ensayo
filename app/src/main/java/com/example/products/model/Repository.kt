@@ -15,14 +15,14 @@ import retrofit2.Response
 
 class Repository(private val mProductsDao: ProductsDao) {
 
-    private val service = RetrofitClient.getRetrofitClient()
+    private val retroServices = RetrofitClient.getRetrofitClient()
 
     val mProductos = mProductsDao.getAllProductsFromDB()
     val mDataProductsDBList = mutableListOf<Products>()
 
     fun getProductsFromServer() {
 
-        val mCall = service.fecthAllProducts()
+        val mCall = retroServices.fecthAllProducts()
         mCall.enqueue(object : Callback<List<ProductsItem>> {
             override fun onResponse(
                     call: Call<List<ProductsItem>>,
@@ -52,6 +52,41 @@ class Repository(private val mProductsDao: ProductsDao) {
 
     }
 
+    fun getDataFromServerWithCoroutines() = CoroutineScope(Dispatchers.IO).launch {
+
+        val service = kotlin.runCatching { retroServices.fetchAllCoroutines() }
+        service.onSuccess { it ->
+            when(it.code()){
+
+                in 200..299 -> it.body()?.let {
+                  mProductsDao.insertAllProducts(it)
+                }
+
+                in 300..599 -> Log.d("Response 300", it.body().toString())
+                else -> Log.d("ERROR", it.errorBody().toString())
+        }
+    }
+            service.onFailure {
+                Log.e("ERROR", it.message.toString())
+            }
+        
+    }
+
+   /* fun convert(mList: List<ProductsItem>): List<ProductsItem>{
+
+        val listProducts = mutableListOf<ProductsItem>()
+
+        mList.map {
+
+            listProducts.add(ProductsItem(it.id,
+            it.name,
+            it.image,
+            it.price))
+        }
+
+        return listProducts*/
+    //}
+
     fun getOneById(id: String): LiveData<ProductsItem> {
         return mProductsDao.getCodigoByID(id)
     }
@@ -67,4 +102,6 @@ class Repository(private val mProductsDao: ProductsDao) {
     fun getOneByPrice(price: String): LiveData<ProductsItem>{
         return mProductsDao.getPriceByID(price)
     }
+
+
 }

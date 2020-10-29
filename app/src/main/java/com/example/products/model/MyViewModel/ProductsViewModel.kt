@@ -17,6 +17,7 @@ class ProductsViewModel(application: Application): AndroidViewModel(application)
         mRepository = Repository(mProductsDao)
         mAllProducts = mRepository.mProductos
         mRepository.getProductsFromServer()
+        mRepository.getDataFromServerWithCoroutines()
 
     }
 

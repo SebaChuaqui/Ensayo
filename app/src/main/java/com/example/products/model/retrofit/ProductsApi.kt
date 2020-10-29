@@ -13,5 +13,5 @@ interface ProductsApi {
     fun fecthAllProducts(): Call<List<ProductsItem>>
 
     @GET("products")
-    suspend fun fetchAllCoroutines(): Response<List<ProductsItem>>
+    fun fetchAllCoroutines(): Response<List<ProductsItem>>
 }
